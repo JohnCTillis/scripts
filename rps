@@ -1,0 +1,206 @@
+#!/usr/bin/env python3
+import random
+import colorama
+import sys
+import os
+from termcolor import colored
+
+def main():
+    ### TODO ###
+    # maybe use pygame.....
+    # integrate ctrl-l and other keypresses to clear the screen and other things 
+    #### FIX ALL THE BUGS!!!!!!!
+    # pygame.init()
+    colorama.init()
+    # keys = pygame.key.get_pressed()
+    def clear_scr():
+        os.system("cls" if os.name == "nt" else "clear")
+    def win():
+        print(colored("You win!", "yellow"))
+    def lose():
+        print(colored("Unfortunately, you have lost... Good luck next time!", "magenta"))
+    def tie():
+        print(colored("It was a tie. Aparently, you are as good as a computer. Nice.", "blue"))
+
+    rules_spock = colored("""
+    ### RULES ###
+    Scissors cuts Paper
+    Paper covers Rock
+    Rock crushes Lizard
+    Lizard poisons Spock
+    Spock smashes Scissors
+    Scissors decapitates Lizard
+    Lizard eats Paper
+    Paper disproves Spock
+    Spock vaporizes Rock
+    (and as it always has) Rock crushes Scissors
+
+    """, 'green')
+    rules = colored("""
+    ### RULES ###
+    Rock crushes scissors
+    Scissors cuts paper
+    Paper covers rock
+    """, "green")
+    def play_normal():
+        
+        userin = str(input(colored("""
+        Ok then...What do you play?
+
+        """, 'cyan'))).strip()
+
+        if (userin != "rock" and userin != "paper" and userin != "scissors" and userin != 'q' and userin != "clear" and userin != "rules"):
+            print(colored("Please enter a valid input (rock/paper/scissors or q to quit)\n", "red"))
+            play_normal()
+                #if keys[pygame.KMOD_ALT]:
+                #    clear_scr()
+        if (userin == "q"):
+            sys. exit()
+        elif (userin == "rules"):
+            print(rules)
+            play_normal()
+        elif (userin == "clear"):
+            clear_scr()
+            play_normal()
+        else:
+                    computer_move = random.choice(["rock", "paper", "scissors"])
+                    print(colored(f"The computer played {computer_move}", "red"))
+                    match userin:
+                        case "rock":
+                            if computer_move == "rock":
+                                tie()
+                            elif computer_move == "paper":
+                                lose()
+                            else:
+                                win()
+                        case "paper":
+                            if computer_move == "rock":
+                                win()
+                            elif computer_move == "paper":
+                                tie()
+                            else:
+                                lose()
+                        case "scissors":
+                            if computer_move == "rock":
+                                lose()
+                            elif computer_move == "paper":
+                                win()
+                            else:
+                                tie()
+    def play_spock():
+        
+        spock_userin = str(input(colored("""
+                    Good choice! Sheldon would be proud =)
+                    What do you play?
+                    """, "yellow"))).strip()
+        if (spock_userin != "rock" and spock_userin != "scissors" and spock_userin != "paper" and spock_userin != "spock" and spock_userin != "lizard" and spock_userin != "q" and spock_userin != "clear" and spock_userin != "rules"):
+            print(colored("""   Please provide a valid input
+                (rock/paper/scissors/lizard/spock or q to quit and clear to clear the screen)
+                """, "red"))
+            play_spock()
+        if spock_userin == "q":
+            sys.exit()
+        elif (spock_userin == "rules"):
+            print(rules_spock)
+            play_spock()
+        elif spock_userin == "clear":
+            clear_scr()
+            play_spock()
+        else:
+            computer_spock_move = random.choice(["rock", "paper", "scissors", "lizard", "spock"])
+            print(colored(f"The computer played {computer_spock_move}", "red"))
+            match spock_userin:
+                case "rock":
+                    match computer_spock_move:
+                        case "rock":
+                            tie()
+                        case "paper":
+                            lose()
+                        case "scissors":
+                            win()
+                        case "lizard":
+                            win()
+                        case "spock":
+                            lose()
+                case "paper":
+                    match computer_spock_move:
+                        case "rock":
+                            win()
+                        case "paper":
+                            tie()
+                        case "scissors":
+                            lose()
+                        case "lizard":
+                            lose()
+                        case "spock":
+                            win()
+                case "scissors":
+                    match computer_spock_move:
+                        case "rock":
+                            lose()
+                        case "paper":
+                            win()
+                        case "scissors":
+                            tie()
+                        case "lizard":
+                            win()
+                        case "spock":
+                            lose()
+                case "lizard":
+                    match computer_spock_move:
+                        case "rock":
+                            lose()
+                        case "paper":
+                            win()
+                        case "scissors":
+                            lose()
+                        case "lizard":
+                            tie()
+                        case "spock":
+                            win()
+                case "spock":
+                    match computer_spock_move:
+                        case "rock":
+                            win()
+                        case "paper":
+                            lose()
+                        case "scissors":
+                            win()
+                        case "lizard":
+                            lose()
+                        case "spock":
+                            tie()
+    
+    
+
+    def ask_for_input():
+        while True:
+            lizard_spock_in = str(input(colored("""
+            We are going to play a rock-paper-scissors game!
+            Type "q" to exit, "clear" to clear the screen and "rules" to show the rules...
+            But first, do you want to play the traditional rock-paper-scissors,
+            Or do you want """, 'green') + colored("rock-paper-scissors-lizard-spock?", "blue") + 
+            colored("""
+            What do you think? (yes/no)
+            """, "green"))).strip()
+            if lizard_spock_in == "q":
+                sys.exit()
+            elif lizard_spock_in == "rules":
+                print(rules)
+            elif lizard_spock_in == "clear":
+                clear_scr()
+            elif (lizard_spock_in == "no"):
+                play_normal()
+            
+            elif (lizard_spock_in == "yes"):
+                play_spock()
+
+            else:
+                print(colored("Please enter a valid input (yes/no)\n", "red"))
+                ask_for_input()
+    ask_for_input()
+
+
+if __name__ == "__main__":
+    main()
+
