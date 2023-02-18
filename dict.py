@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import time
 import requests
 import json
@@ -43,10 +44,14 @@ counter = time.perf_counter()
 
 def main():
     try:
-        dictionary_api_official_call()
-    except KeyError:
-        print(colored("That is not a real word... Try again", "red"))
-        main()
+        try:
+            dictionary_api_official_call()
+        except KeyError:
+            print(colored("That is not a real word... Try again", "red"))
+            main()
+
+    except KeyboardInterrupt:
+        sys.exit()
 
 if __name__ == "__main__":
     main()
