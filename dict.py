@@ -45,7 +45,7 @@ def main():
     try:
         dictionary_api_official_call()
     except KeyError:
-        print(colored("That is not a real word... Try again"))
+        print(colored("That is not a real word... Try again", "red"))
         main()
 
 if __name__ == "__main__":
